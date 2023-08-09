@@ -6,7 +6,7 @@ const breakTime = document.querySelector(".timer__breakTime") as HTMLButtonEleme
 const mediumTime = document.querySelector(".timer__mediumTime") as HTMLButtonElement;
 const fullTimeButton = document.querySelector(".timer__fullTime") as HTMLButtonElement;
 const pomodoroTimerProgress = document.querySelector(".timer__progress-bar") as HTMLDivElement;
-let timerMinutes;
+let timerMinutes =1;
 let fullTime = timerMinutes * 60;
 let remainingTime = fullTime;
 let intervId;
@@ -19,9 +19,6 @@ const seconds = `${sec < 10 ? "0" : ''}${sec}`;
 const minutes = `${min < 10 ? "0" : ''}${min}`;
 
 pomodoroTimer.innerText = `${minutes}:${seconds}`;
-
-let progress = ((remainingTime - fullTime) / remainingTime) * 100;
-  pomodoroTimerProgress.style.width = `${progress}%`;
 
 function countdown() {
   if (!isCountingDown || fullTime < 0) {
@@ -38,6 +35,7 @@ function countdown() {
   let progress = ((remainingTime - fullTime) / remainingTime) * 100;
   pomodoroTimerProgress.style.width = `${progress}%`;
   fullTime--;
+  console.log(progress)
 }
 
 function pauseCountdown() {
@@ -50,7 +48,7 @@ function pauseCountdown() {
 timerStart.addEventListener("click", function () {
   if (!isCountingDown) {
     isCountingDown = true;
-    intervId = setInterval(countdown, 1000);
+    intervId = setInterval(countdown, 10);
     timerStart.setAttribute('disabled', '');
     timerPause.removeAttribute('disabled');
   };
@@ -70,6 +68,7 @@ breakTime.addEventListener("click", function() {
   isCountingDown=true
   timerMinutes = 5;
   fullTime = timerMinutes * 60
+  remainingTime = fullTime
   countdown();
   pauseCountdown();
   timerPause.removeAttribute('disabled');
@@ -79,6 +78,7 @@ mediumTime.addEventListener("click", function() {
   isCountingDown=true
   timerMinutes = 10;
   fullTime = timerMinutes * 60
+  remainingTime = fullTime
   countdown();
   pauseCountdown();
   timerPause.removeAttribute('disabled');
@@ -88,6 +88,7 @@ fullTimeButton.addEventListener("click", function() {
   isCountingDown=true
   timerMinutes = 25;
   fullTime = timerMinutes * 60
+  remainingTime = fullTime
   countdown();
   pauseCountdown();
   timerPause.removeAttribute('disabled');

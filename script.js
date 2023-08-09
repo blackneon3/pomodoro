@@ -6,7 +6,7 @@ var breakTime = document.querySelector(".timer__breakTime");
 var mediumTime = document.querySelector(".timer__mediumTime");
 var fullTimeButton = document.querySelector(".timer__fullTime");
 var pomodoroTimerProgress = document.querySelector(".timer__progress-bar");
-var timerMinutes;
+var timerMinutes = 1;
 var fullTime = timerMinutes * 60;
 var remainingTime = fullTime;
 var intervId;
@@ -16,8 +16,6 @@ var sec = fullTime % 60;
 var seconds = "".concat(sec < 10 ? "0" : '').concat(sec);
 var minutes = "".concat(min < 10 ? "0" : '').concat(min);
 pomodoroTimer.innerText = "".concat(minutes, ":").concat(seconds);
-var progress = ((remainingTime - fullTime) / remainingTime) * 100;
-pomodoroTimerProgress.style.width = "".concat(progress, "%");
 function countdown() {
     if (!isCountingDown || fullTime < 0) {
         return;
@@ -30,6 +28,7 @@ function countdown() {
     var progress = ((remainingTime - fullTime) / remainingTime) * 100;
     pomodoroTimerProgress.style.width = "".concat(progress, "%");
     fullTime--;
+    console.log(progress);
 }
 function pauseCountdown() {
     isCountingDown = false;
@@ -41,7 +40,7 @@ function pauseCountdown() {
 timerStart.addEventListener("click", function () {
     if (!isCountingDown) {
         isCountingDown = true;
-        intervId = setInterval(countdown, 1000);
+        intervId = setInterval(countdown, 10);
         timerStart.setAttribute('disabled', '');
         timerPause.removeAttribute('disabled');
     }
@@ -59,6 +58,7 @@ breakTime.addEventListener("click", function () {
     isCountingDown = true;
     timerMinutes = 5;
     fullTime = timerMinutes * 60;
+    remainingTime = fullTime;
     countdown();
     pauseCountdown();
     timerPause.removeAttribute('disabled');
@@ -67,6 +67,7 @@ mediumTime.addEventListener("click", function () {
     isCountingDown = true;
     timerMinutes = 10;
     fullTime = timerMinutes * 60;
+    remainingTime = fullTime;
     countdown();
     pauseCountdown();
     timerPause.removeAttribute('disabled');
@@ -75,6 +76,7 @@ fullTimeButton.addEventListener("click", function () {
     isCountingDown = true;
     timerMinutes = 25;
     fullTime = timerMinutes * 60;
+    remainingTime = fullTime;
     countdown();
     pauseCountdown();
     timerPause.removeAttribute('disabled');
