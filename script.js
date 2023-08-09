@@ -6,7 +6,7 @@ var breakTime = document.querySelector(".timer__breakTime");
 var mediumTime = document.querySelector(".timer__mediumTime");
 var fullTimeButton = document.querySelector(".timer__fullTime");
 var pomodoroTimerProgress = document.querySelector(".timer__progress-bar");
-var timerMinutes = 1;
+var timerMinutes;
 var fullTime = timerMinutes * 60;
 var remainingTime = fullTime;
 var intervId;
@@ -40,7 +40,7 @@ function pauseCountdown() {
 timerStart.addEventListener("click", function () {
     if (!isCountingDown) {
         isCountingDown = true;
-        intervId = setInterval(countdown, 10);
+        intervId = setInterval(countdown, 1000);
         timerStart.setAttribute('disabled', '');
         timerPause.removeAttribute('disabled');
     }
